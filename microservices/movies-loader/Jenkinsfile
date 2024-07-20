@@ -1,5 +1,7 @@
 node('worker'){
     stage('Checkout'){
-        checkout scm
+        git branch 'develop',
+        credentialsId: 'github-ssh',
+        url: 'git@github.com:lyteabovenyte/movies-loader.git'
     }
 }
