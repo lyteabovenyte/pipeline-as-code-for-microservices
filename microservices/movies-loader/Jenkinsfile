@@ -7,7 +7,9 @@ node('worker'){
         url: 'git@github.com:lyteabovenyte/movies-loader.git'
     }
     stage('Unit Tests'){
-        sh "docker build -t ${imageName}-test -f Dockerfile.test ."
-        sh "docker run --rm ${imageName}-test"
+        def ImageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
+        imageTest.inside{
+            sh 'python test-main.py'
+        }
     }
 }
