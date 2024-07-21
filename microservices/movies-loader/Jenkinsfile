@@ -8,8 +8,7 @@ node('worker'){
     }
     stage('Unit Tests'){
         def ImageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
-        imageTest.inside{
-            sh 'python test-main.py'
-        }
+        sh "docker run --rm -v $PWD/reports:/app/reports ${imageName}-test"
+        junit "$PWD/reports/*.xml"
     }
 }
