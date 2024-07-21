@@ -1,7 +1,13 @@
+def imageName = 'lyteabovenyte/movies-loader'
+
 node('worker'){
     stage('Checkout'){
         git branch 'develop',
         credentialsId: 'github-ssh',
         url: 'git@github.com:lyteabovenyte/movies-loader.git'
+    }
+    stage('Unit Tests'){
+        sh "docker build -t ${imageName}-test -f Dockerfile.test"
+        sh "docker run --rm ${imageName}-test"
     }
 }
