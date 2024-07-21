@@ -9,6 +9,17 @@ node('worker'){
       'Quality Tests': {
         sh "docker run --rm ${imageName}-test npm run lint"
       }
+      'Unit Tests': {
+        sh "docker run --rm ${imageName}-test npm run test"
+        publishHTML(target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: false,
+          keepAll: true,
+          reportDir: "$PWD/coverage",
+          reportFiles: "index.html",
+          reportName: "Coverage Report"
+        ])
+      }
     )
   }
 }
