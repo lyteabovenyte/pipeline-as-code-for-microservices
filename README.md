@@ -8,6 +8,5 @@
 - Store(Node.js) --> responsible for servig a RESTful API with endpoints to fetch a list of movies and insert new movies into the watch list database in the MongoDB
 - Marketplace(Angular & TypeScript) --> responsible for serving a frontend to browse movies by calling the store RESTful API
 
-###### approach:
+###### key approaches:
 - using an aws api gateway to invoke a lambda function (written in js) and trigger github webhook
-- 
