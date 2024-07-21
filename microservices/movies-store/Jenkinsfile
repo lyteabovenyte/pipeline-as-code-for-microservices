@@ -12,4 +12,12 @@ node('worker'){
             sh 'npm run lint'
         }
     }
+
+    stage('Integration Tests'){
+        sh "docker run --rm ${imageName}-test npm run test"
+    }
+
+    stage('Coverage Reports'){
+        sh "docker run --rm ${imageName}-test npm run coverage-text"
+    }
 }
