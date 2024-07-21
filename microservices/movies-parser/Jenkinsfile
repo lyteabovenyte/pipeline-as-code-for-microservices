@@ -22,7 +22,7 @@ node('worker'){
                 }
             }
             'Security Test': {
-                imageTest.inside{
+                imageTest.inside(-u root:root){
                     sh 'nancy Gopkg.lock'
                 }
             }
