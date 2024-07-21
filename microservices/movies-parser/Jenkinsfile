@@ -7,17 +7,25 @@ node('worker'){
     
     def imageTest = docker.build("${imageName}-test", "-f Dockerfile.test .")
 
-    stage('Quality Tests'){
-        imageTest.inside{
-            sh 'golint'
-        }
-    }
-
-    stage('Unit Tests'){
-        imageTest.inside{
-            sh 'go test'
-            sh 'go test -coverprofile=cover/cover.cov'
-            sh 'go tool cover -html=cover/coverage.cov -o coverage.html'
-        }
+    stage('Pre-integration Tests'){
+        parallel(
+            'Quality Tests': {
+                imageTest.inside{
+                    sh 'golint'
+                }
+            },
+            'Unit Test': {
+                imageTest.inside{
+                    sh 'go test'
+                    sh 'go test -coverprofile=cover/cover.cov'
+                    sh 'go tool cover -html=cover/coverage.cov -o coverage.html'
+                }
+            }
+            'Security Test': {
+                imageTest.inside{
+                    sh 'nancy Gopkg.lock'
+                }
+            }
+        )
     }
 }
