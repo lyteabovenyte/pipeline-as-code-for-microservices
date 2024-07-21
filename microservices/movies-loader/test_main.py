@@ -1,5 +1,6 @@
 import unittest
 import json
+import xmlrunner
 
 
 class TestJSONLoaderMethods(unittest.TestCase):
@@ -20,4 +21,6 @@ class TestJSONLoaderMethods(unittest.TestCase):
         self.assertEqual(self.movies[0]['id'], 'tt0111161')
 
 if __name__ == '__main__':
-    unittest.main()
+    # using JUnit on jenkins --> to consume XML file generated from python unit test
+    runner = xmlrunner.XMLTestRunner(output='reports')
+    unittest.main(testRunner=runner)
