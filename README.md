@@ -10,3 +10,5 @@
 
 ###### key approaches:
 - using an aws api gateway to invoke a lambda function (written in js) and trigger github webhook
+- statis code analysis for Angular and the marketplace with **SonarQube** and perform webhook to jenkins for completion or failure
+- 
