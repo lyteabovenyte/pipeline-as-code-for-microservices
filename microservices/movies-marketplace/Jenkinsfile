@@ -35,4 +35,7 @@ node('worker'){
       }
     )
   }
+  stage('Build'){
+    docker.build(imageName, '--build-arg ENVIRONMENT=sandbox .')
+  }
 }
