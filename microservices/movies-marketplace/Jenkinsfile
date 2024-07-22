@@ -20,6 +20,19 @@ node('worker'){
           reportName: "Coverage Report"
         ])
       }
+      'Static Code Analysis': {
+        withSonarQubeEnv('sonarqube') {
+          sh 'sonar-scanner -Dsonar.projectVersion=$BUILD_NUMBER'
+        }
+      }
+      'Quality Gate': {
+        timeout(time: 5, unit="MINUTE") {
+          def qg = waitForQualityGate()
+          if (qg.status != 'OK') {
+            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+          }
+        }
+      }
     )
   }
 }
