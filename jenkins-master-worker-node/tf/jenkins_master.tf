@@ -40,6 +40,14 @@ resource "aws_security_group" "jenkins_master_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.bastion_host.id]
   }
+  
+  #enabling inbound traffic to anchore engine
+  ingress {
+    from_port = "8228"
+    to_port = "8228"
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   # enabling connection on port 8080 into jenkins master for the jenkins web console
   # only allow traffic on port 8080 from the load balancer sucurity_group ID
