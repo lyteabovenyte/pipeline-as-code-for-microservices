@@ -91,3 +91,23 @@ resource "aws_autoscaling_group" "jenkins_workers" {
     propagate_at_launch = true
   }
 }
+
+# assign IAM instance profile to jenkins worker instances with the AmazonEC2ContainerRegistryFullAccess
+# policy
+resource "aws_iam_instance_profile" "EC2ContainerRegistryFullAccess" {
+  name = "AmazonEC2ContainerRegistryFullAccess"
+  role = aws_iam_role.workers_role.name
+}
+
+data "aws_iam_policy_document" "ECR_full_access" {
+  statement {
+    effect = "Allow"
+    actions = ["sts:AmazonEC2ContainerRegistryFullAccess"]
+  }
+}
+
+resource "aws_iam_role" "workers_role" {
+  name = "jenkins-worker-role"
+  path = "/" 
+  assume_role_policy = aws_iam_policy_document.EC2ContainerRegistryFullAccess.json
+}
