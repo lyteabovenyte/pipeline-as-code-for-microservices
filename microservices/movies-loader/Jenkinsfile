@@ -1,5 +1,11 @@
 def imageName = 'lyteabovenyte/movies-loader'
 def registry = 'https://registry.amir.com'
+def commitID() {
+    sh 'git rev-parse HEAD > .git/commitID'
+    def commitID = readFile('.git/commitID').trim()
+    sh 'rm .git/commitID'
+    commitID
+}
 
 node('worker'){
     stage('Checkout'){
@@ -17,7 +23,7 @@ node('worker'){
     }
     stage('Push') {
         docker.withRegistry(registry, 'registry') {
-            docker.image(imageName).push(env.BUILD_ID)
+            docker.image(imageName).push(commitID())
         }
     }
 }
