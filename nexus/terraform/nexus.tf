@@ -17,6 +17,16 @@ resource "aws_instance" "nexus" {
   }
 }
 
+data "aws_ami" "nexus" {
+  most_recent = true
+  owners = ["self"]
+
+  filter {
+    name = "name"
+    values = ["nexus-*"]
+  }
+}
+
 resource "aws_security_group" "nexus_sg" {
   name        = "nexus_sg"
   description = "Allow traffic on port 8081 & 5000 and enable SSH from bastion host"
