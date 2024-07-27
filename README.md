@@ -13,3 +13,4 @@
 - statis code analysis for Angular and the marketplace with **SonarQube** and perform webhook to jenkins for completion or failure
 - CVE (Common Vulnerability and Exposure) scanning of source code using **Nancy**
 - baking **Nexux** Repository OSS machine image with **Packer** to host our private docker registery.
+- using **Anchore Engine** for continuous visibility into supply chain security risks
