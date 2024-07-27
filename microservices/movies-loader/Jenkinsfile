@@ -1,4 +1,5 @@
 def imageName = 'lyteabovenyte/movies-loader'
+def registry = 'https://registry.amir.com'
 
 node('worker'){
     stage('Checkout'){
@@ -13,5 +14,10 @@ node('worker'){
     }
     stage('Build') {
         docker.build(imageName)
+    }
+    stage('Push') {
+        docker.withRegistry(registry, 'registry') {
+            docker.image(imageName).push(env.BUILD_ID)
+        }
     }
 }
