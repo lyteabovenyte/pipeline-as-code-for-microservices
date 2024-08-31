@@ -1,6 +1,6 @@
 ##### implementing jenkins pipeline in a microservice architecture
 # NOTE:
-- to deploy a jenkins cluster with master and worker nodes on AWS and Google Cloud refer to (deploy jenkins cluster with Terraform)[https://github.com/lyteabovenyte/exploring-jenkins]
+- to deploy a jenkins cluster with master and worker nodes on AWS and Google Cloud refer to [deploy jenkins cluster with Terraform](https://github.com/lyteabovenyte/exploring-jenkins)
 
 ###### microservice components:
 - Loader(Python) --> responsible for reading a JSON file containing a list of movies and pushing each movie item to Amazon SQS
